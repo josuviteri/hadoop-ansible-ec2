@@ -6,6 +6,11 @@
       src: hadoop-master/workers
       dest: /home/ec2-user/hadoop-3.3.6/etc/hadoop/workers
 
+  - name: copy hdfs-site.xml file to hadoop-master
+    ansible.builtin.copy:
+      src: hadoop-master/hdfs-site.xml
+      dest: /home/ec2-user/hadoop-3.3.6/etc/hadoop/hdfs-site.xml
+
   - name: Create NameNode metadata path
     ansible.builtin.file:
       path: /home/ec2-user/nn
