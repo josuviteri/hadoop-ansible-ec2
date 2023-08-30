@@ -17,7 +17,6 @@
     amazon.aws.ec2_instance:
       name: "hadoop-master"
       key_name: "vockey"
-      # vpc_subnet_id: subnet-5ca1ab1e
       instance_type: t3.large
       security_group: hadoop-sg
       image_id: ami-051f7e7f6c2f40dc1
@@ -29,7 +28,6 @@
     amazon.aws.ec2_instance:
       name: "hadoop-worker-{{item}}"
       key_name: "vockey"
-      # vpc_subnet_id: subnet-5ca1ab1e
       instance_type: t3.large
       security_group: hadoop-sg
       image_id: ami-051f7e7f6c2f40dc1
@@ -45,7 +43,6 @@
     amazon.aws.ec2_instance:
       name: "hadoop-client"
       key_name: "vockey"
-      # vpc_subnet_id: subnet-5ca1ab1e
       instance_type: t3.large
       security_group: hadoop-sg
       image_id: ami-051f7e7f6c2f40dc1
