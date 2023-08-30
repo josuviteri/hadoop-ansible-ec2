@@ -12,3 +12,5 @@
 9. Configure hadoop-master node: `ansible-playbook -i inventory.yml --key-file=~/.ssh/vockey.pem --user ec2-user configure-master.yml`
 10. Edit hadoop-worker/hdfs-site.xml and set the actual master **private** DNS at `fs.defaultFS` property.
 11. Configure hadoop-worker nodes: `ansible-playbook -i inventory.yml --key-file=~/.ssh/vockey.pem --user ec2-user configure-worker.yml`
+12. Edit hadoop-client/hdfs-site.xml and set the actual master **private** DNS at `fs.defaultFS` property.
+12. Configure hadoop-client node: `ansible-playbook -i inventory.yml --key-file=~/.ssh/vockey.pem --user ec2-user configure-client.yml`

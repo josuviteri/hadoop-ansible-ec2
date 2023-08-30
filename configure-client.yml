@@ -1,0 +1,6 @@
+- hosts: hadoop_client
+  tasks:
+  - name: copy hdfs-site.xml file to hadoop-client
+    ansible.builtin.copy:
+      src: hadoop-client/hdfs-site.xml
+      dest: /home/ec2-user/hadoop-3.3.6/etc/hadoop/hdfs-site.xml
