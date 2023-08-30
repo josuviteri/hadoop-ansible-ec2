@@ -4,7 +4,7 @@
   - name: Download Hadoop
     ansible.builtin.get_url:
       url: https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz
-      dest: /home/ec2-home/hadoop
+      dest: /home/ec2-user
 
   - name: Extract Hadoop
-    ansible.builtin.command: tar -xf /home/ec2-home/hadoop-3.3.6.tar.gz
+    ansible.builtin.command: tar -xf /home/ec2-user/hadoop-3.3.6.tar.gz
