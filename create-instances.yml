@@ -9,9 +9,10 @@
       rules:
         - proto: all
           group_name: hadoop-sg
-        - proto: ssh
-          cidr: 0.0.0.0/0
-
+        - proto: tcp
+          cidr_ip: 0.0.0.0/0
+          ports: 
+          - 22
 
   - name: Start hadoop master instance
     amazon.aws.ec2_instance:
@@ -23,6 +24,11 @@
       region: us-east-1
       tags:
         Group: hadoop
+      volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_size: 50
+          delete_on_termination: true
       
   - name: Start hadoop worker instances
     amazon.aws.ec2_instance:
@@ -34,6 +40,11 @@
       region: us-east-1
       tags:
         Group: hadoop
+      volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_size: 50
+          delete_on_termination: true
     loop:
       - "1"
       - "2"
@@ -49,3 +60,8 @@
       region: us-east-1
       tags:
         Group: hadoop
+      volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_size: 50
+          delete_on_termination: true

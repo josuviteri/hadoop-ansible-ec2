@@ -5,6 +5,11 @@
       src: hadoop-worker/hdfs-site.xml
       dest: /home/ec2-user/hadoop-3.3.6/etc/hadoop/hdfs-site.xml
 
+  - name: copy core-site.xml file to hadoop-worker
+    ansible.builtin.copy:
+      src: core-site.xml
+      dest: /home/ec2-user/hadoop-3.3.6/etc/hadoop/core-site.xml
+
   - name: Create DataNode directory
     ansible.builtin.file:
       path: /home/ec2-user/dn

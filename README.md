@@ -8,9 +8,7 @@
 5. Edit `inventory.yml` file and replace each server **public** DNS with the current ones.
 6. Install Hadoop: `ansible-playbook -i inventory.yml --key-file=~/.ssh/vockey.pem --user ec2-user install-hadoop.yml`
 7. Edit hadoop-master/workers file setting the actual workers **private** DNS.
-8. Edit hadoop-master/hdfs-site.xml and set the actual master **private** DNS at `fs.defaultFS` property.
+8. Edit core-site.xml and set the actual master **private** DNS at `fs.defaultFS` property.
 9. Configure hadoop-master node: `ansible-playbook -i inventory.yml --key-file=~/.ssh/vockey.pem --user ec2-user configure-master.yml`
-10. Edit hadoop-worker/hdfs-site.xml and set the actual master **private** DNS at `fs.defaultFS` property.
-11. Configure hadoop-worker nodes: `ansible-playbook -i inventory.yml --key-file=~/.ssh/vockey.pem --user ec2-user configure-worker.yml`
-12. Edit hadoop-client/hdfs-site.xml and set the actual master **private** DNS at `fs.defaultFS` property.
-12. Configure hadoop-client node: `ansible-playbook -i inventory.yml --key-file=~/.ssh/vockey.pem --user ec2-user configure-client.yml`
+10. Configure hadoop-worker nodes: `ansible-playbook -i inventory.yml --key-file=~/.ssh/vockey.pem --user ec2-user configure-worker.yml`
+11. Configure hadoop-client node: `ansible-playbook -i inventory.yml --key-file=~/.ssh/vockey.pem --user ec2-user configure-client.yml`

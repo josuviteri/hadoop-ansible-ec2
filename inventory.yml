@@ -1,11 +1,11 @@
 hadoop_master:
   hosts:
-    ec2-54-174-156-136.compute-1.amazonaws.com:
+    ec2-34-228-65-9.compute-1.amazonaws.com:
 hadoop_worker:
   hosts:
-    ec2-34-207-80-35.compute-1.amazonaws.com:
-    ec2-3-95-215-145.compute-1.amazonaws.com:
-    ec2-75-101-234-87.compute-1.amazonaws.com:
+    ec2-54-90-174-174.compute-1.amazonaws.com:
+    ec2-54-198-162-205.compute-1.amazonaws.com:
+    ec2-54-226-249-216.compute-1.amazonaws.com:
 hadoop_client:
   hosts:
-    ec2-54-91-160-13.compute-1.amazonaws.com:
+    ec2-54-172-203-112.compute-1.amazonaws.com:
