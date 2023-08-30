@@ -1,0 +1,56 @@
+---
+- hosts: localhost
+  tasks:
+  - name: Create security group for node communication
+    amazon.aws.ec2_security_group:
+      name: hadoop-sg
+      description: sg with total access within hadoop nodes
+      region: us-east-1
+      rules:
+        - proto: all
+          group_name: hadoop-sg
+        - proto: ssh
+          cidr: 0.0.0.0/0
+
+
+  - name: Start hadoop master instance
+    amazon.aws.ec2_instance:
+      name: "hadoop-master"
+      key_name: "vockey"
+      # vpc_subnet_id: subnet-5ca1ab1e
+      instance_type: t3.large
+      security_group: hadoop-sg
+      image_id: ami-051f7e7f6c2f40dc1
+      region: us-east-1
+      tags:
+        Group: hadoop
+      
+  - name: Start hadoop worker instances
+    amazon.aws.ec2_instance:
+      name: "hadoop-worker-{{item}}"
+      key_name: "vockey"
+      # vpc_subnet_id: subnet-5ca1ab1e
+      instance_type: t3.large
+      security_group: hadoop-sg
+      image_id: ami-051f7e7f6c2f40dc1
+      region: us-east-1
+      tags:
+        Group: hadoop
+    loop:
+      - "1"
+      - "2"
+      - "3" 
+
+  - name: Start hadoop client instance
+    amazon.aws.ec2_instance:
+      name: "hadoop-client"
+      key_name: "vockey"
+      # vpc_subnet_id: subnet-5ca1ab1e
+      instance_type: t3.large
+      security_group: hadoop-sg
+      image_id: ami-051f7e7f6c2f40dc1
+      region: us-east-1
+      tags:
+        Group: hadoop
+
+
