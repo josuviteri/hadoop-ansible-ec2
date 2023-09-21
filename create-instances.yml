@@ -54,7 +54,7 @@
     amazon.aws.ec2_instance:
       name: "hadoop-client"
       key_name: "vockey"
-      instance_type: t3.large
+      instance_type: t3.small
       security_group: hadoop-sg
       image_id: ami-051f7e7f6c2f40dc1
       region: us-east-1
@@ -63,5 +63,5 @@
       volumes:
       - device_name: /dev/sda1
         ebs:
-          volume_size: 50
+          volume_size: 8
           delete_on_termination: true

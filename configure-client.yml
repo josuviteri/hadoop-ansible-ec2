@@ -1,6 +1,0 @@
-- hosts: hadoop_client
-  tasks:
-  - name: copy core-site.xml file to hadoop-client
-    ansible.builtin.copy:
-      src: core-site.xml
-      dest: /home/ec2-user/hadoop-3.3.6/etc/hadoop/core-site.xml
