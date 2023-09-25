@@ -25,7 +25,7 @@
       tags:
         Group: hadoop
       volumes:
-      - device_name: /dev/sda1
+      - device_name: /dev/xvda
         ebs:
           volume_size: 50
           delete_on_termination: true
@@ -41,7 +41,7 @@
       tags:
         Group: hadoop
       volumes:
-      - device_name: /dev/sda1
+      - device_name: /dev/xvda
         ebs:
           volume_size: 50
           delete_on_termination: true
@@ -61,7 +61,7 @@
       tags:
         Group: hadoop
       volumes:
-      - device_name: /dev/sda1
+      - device_name: /dev/xvda
         ebs:
           volume_size: 8
           delete_on_termination: true
