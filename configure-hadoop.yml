@@ -6,17 +6,13 @@
       src: core-site.xml
       dest: /home/ec2-user/hadoop-3.3.6/etc/hadoop/core-site.xml
 
-- hosts:
-  - hadoop_master
-  - hadoop_worker
+- hosts: hadoop_master
   tasks:
-  - name: copy hdfs-site.xml file to hadoop-master and hadoop-worker nodes
+  - name: copy hdfs-site.xml file to hadoop-master node
     ansible.builtin.copy:
       src: hadoop-master/hdfs-site.xml
       dest: /home/ec2-user/hadoop-3.3.6/etc/hadoop/hdfs-site.xml
 
-- hosts: hadoop_master
-  tasks:
   - name: Copy workers file to hadoop-master
     ansible.builtin.copy:
       src: hadoop-master/workers
@@ -46,6 +42,11 @@
 
 - hosts: hadoop_worker
   tasks:
+  - name: copy hdfs-site.xml file to hadoop-worker nodes
+    ansible.builtin.copy:
+      src: hadoop-worker/hdfs-site.xml
+      dest: /home/ec2-user/hadoop-3.3.6/etc/hadoop/hdfs-site.xml
+
   - name: Create DataNode directory
     ansible.builtin.file:
       path: /home/ec2-user/dn
