@@ -16,7 +16,7 @@
 # Install YARN
 
 1. Edit `inventory.yml` file and replace each server **public** DNS with the current ones.
-2. Edit hadoop-master/yarn-site.xml and set hadoop-master's **private** DNS at yarn.resourcemanager.hostname property.
+2. Edit hadoop-worker/yarn-site.xml and set hadoop-master's **private** DNS at yarn.resourcemanager.hostname property.
 3. Edit hadoop-client/yarn-site.xml and set hadoop-master's **private** DNS at yarn.resourcemanager.hostname property.
 4. Configure YARN: `ansible-playbook -i inventory.yml --key-file=~/.ssh/vockey.pem --user ec2-user install-yarn.yml`
 5. To connect to the ResourceManager Web UI, open a ssh tunnel to the master node and access to http://ec2-44-192-103-94.compute-1.amazonaws.com:8088 (replace by your hadoop-master public IP): 
