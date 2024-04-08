@@ -30,8 +30,6 @@
           cidr_ip: "{{ ipify_public_ip }}/32"
           ports: 
           - 22
-          - 50070
-          - 8088
 
   - name: Start hadoop master instance
     amazon.aws.ec2_instance:
@@ -118,6 +116,7 @@
     ansible.builtin.get_url:
       url: https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz
       dest: /home/ec2-user
+      timeout: 60
 
   - name: Extract Hadoop
     ansible.builtin.command: tar -xf /home/ec2-user/hadoop-3.3.6.tar.gz
@@ -206,6 +205,7 @@
     ansible.builtin.get_url:
       url: https://dlcdn.apache.org/spark/spark-3.5.1/spark-3.5.1-bin-hadoop3.tgz
       dest: /home/ec2-user
+      timeout: 60
 
   - name: Extract Spark
     ansible.builtin.command: tar -xf /home/ec2-user/spark-3.5.1-bin-hadoop3.tgz
