@@ -22,6 +22,7 @@
       security_group: hadoop-sg
       image_id: ami-051f7e7f6c2f40dc1
       region: us-east-1
+      state: running
       tags:
         Group: hadoop-master
       volumes:
@@ -29,7 +30,7 @@
         ebs:
           volume_size: 50
           delete_on_termination: true
-    register: hadoop-master-values
+    register: hadoop_master_values
       
   - name: Start hadoop worker instances
     amazon.aws.ec2_instance:
@@ -39,6 +40,7 @@
       security_group: hadoop-sg
       image_id: ami-051f7e7f6c2f40dc1
       region: us-east-1
+      state: running
       tags:
         Group: hadoop-worker
       volumes:
@@ -50,9 +52,44 @@
       - "1"
       - "2"
       - "3" 
-    register: hadoop-worker-{{item}}-values
+    register: hadoop_worker_values
 
   - meta: refresh_inventory
+
+- hosts: localhost
+  tasks:
+  - name: Copy hosts.template to hosts file
+    copy: 
+      src: hosts.template
+      dest: hosts
+
+  - name: Replace master host IP at hosts file
+    replace:
+      path: hosts
+      regexp: 'master-node-ip'
+      replace: "{{ hadoop_master_values.instances[0].private_ip_address }}"
+  
+  - name: Debug hadoop_worker_values
+    debug:
+      msg: "{{ item.instances[0].private_ip_address }}"
+    loop: "{{ hadoop_worker_values.results }}"
+
+  - name: Replace workers host IP at hosts file
+    replace:
+      path: hosts
+      regexp: 'worker-{{ index }}-ip'
+      replace: "{{ item.instances[0].private_ip_address }}"
+    loop: "{{ hadoop_worker_values.results }}"
+    loop_control:
+        index_var: index
+      
+- hosts: all
+  tasks:
+  - name: Copy hosts file to all hosts
+    become: true
+    copy:
+      src: hosts
+      dest: /etc/hosts
 
 - hosts: all
   tasks:
@@ -73,7 +110,7 @@
   - name: Set HADOOP_HOME environment variable at ~/.bashrc
     ansible.builtin.shell: echo 'export HADOOP_HOME=/home/ec2-user/hadoop-3.3.6' >> ~/.bashrc
 
-  - name: copy core-site.xml file to all hosts
+  - name: Copy core-site.xml file to all hosts
     ansible.builtin.copy:
       src: core-site.xml
       dest: /home/ec2-user/hadoop-3.3.6/etc/hadoop/core-site.xml
@@ -111,6 +148,23 @@
   - name: Set the service to start at init
     become: true
     ansible.builtin.shell: systemctl enable namenode
+
+  - name: Download Spark
+    ansible.builtin.get_url:
+      url: https://dlcdn.apache.org/spark/spark-3.5.1/spark-3.5.1-bin-hadoop3.tgz
+      dest: /home/ec2-user
+
+  - name: Extract Spark
+    ansible.builtin.command: tar -xf /home/ec2-user/spark-3.5.1-bin-hadoop3.tgz
+
+  - name: Set SPARK_HOME environment variable at ~/.bashrc
+    ansible.builtin.shell: echo 'export SPARK_HOME=/home/ec2-user/spark-3.5.1-bin-hadoop3' >> ~/.bashrc
+
+  - name: Set HADOOP_CONF_DIR environment variable at ~/.bashrc
+    ansible.builtin.shell: echo 'export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop' >> ~/.bashrc
+
+  - name: Set YARN_CONF_DIR environment variable at ~/.bashrc
+    ansible.builtin.shell: echo 'export YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop' >> ~/.bashrc
 
 - hosts: tag_Group_hadoop_worker
   tasks:
