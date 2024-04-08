@@ -13,6 +13,19 @@
           cidr_ip: 0.0.0.0/0
           ports: 
           - 22
+  - name: Create a security group for master communication to outside
+    amazon.aws.ec2_security_group:
+      name: hadoop-master-sg
+      description: sg with partial access to hadoop-master node
+      region: us-east-1
+      rules:
+        - proto: all
+          group_name: hadoop-master-sg
+        - proto: tcp
+          cidr_ip: 0.0.0.0/0
+          ports: 
+          - 50070
+          - 8088
 
   - name: Start hadoop master instance
     amazon.aws.ec2_instance:
@@ -110,6 +123,9 @@
   - name: Set HADOOP_HOME environment variable at ~/.bashrc
     ansible.builtin.shell: echo 'export HADOOP_HOME=/home/ec2-user/hadoop-3.3.6' >> ~/.bashrc
 
+  - name: Set Hadoop bin directory to the PATH.
+    ansible.builtin.shell: echo 'export PATH=/home/ec2-user/hadoop-3.3.6/bin:$PATH' >> ~/.bashrc
+
   - name: Copy core-site.xml file to all hosts
     ansible.builtin.copy:
       src: core-site.xml
@@ -121,6 +137,11 @@
     ansible.builtin.copy:
       src: hadoop-master/hdfs-site.xml
       dest: /home/ec2-user/hadoop-3.3.6/etc/hadoop/hdfs-site.xml
+  
+  - name: copy yarn-site.xml file to hadoop-master
+    ansible.builtin.copy:
+      src: hadoop-master/yarn-site.xml
+      dest: /home/ec2-user/hadoop-3.3.6/etc/hadoop/yarn-site.xml
 
   - name: Copy workers file to hadoop-master
     ansible.builtin.copy:

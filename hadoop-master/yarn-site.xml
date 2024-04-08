@@ -18,11 +18,7 @@
 
 <configuration>
     <property>
-        <name>dfs.namenode.name.dir</name>
-        <value>/home/ec2-user/nn</value>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>0.0.0.0</value>
     </property>
-    <property>
-        <name>dfs.namenode.http-address</name>
-        <value>0.0.0.0:50070</value>
-  </property>
 </configuration>
