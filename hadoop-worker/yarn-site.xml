@@ -19,7 +19,7 @@
 <configuration>
     <property>
         <name>yarn.resourcemanager.hostname</name>
-        <value>ip-172-31-10-197.ec2.internal</value>
+        <value>hadoop-master</value>
     </property>
     <property>
       <name>yarn.nodemanager.resource.cpu-vcores</name>
