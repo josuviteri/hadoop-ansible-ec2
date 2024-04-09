@@ -193,6 +193,9 @@
       src: hadoop-master/mapred-site.xml
       dest: /home/ec2-user/hadoop-3.3.6/etc/hadoop/mapred-site.xml
 
+  - name: Set HADOOP_CLASSPATH environment variable at ~/.bashrc
+    ansible.builtin.shell: echo 'export HADOOP_CLASSPATH=$JAVA_HOME/lib/tools.jar' >> ~/.bashrc
+
   - name: Start ResourceManager
     become: true
     systemd:
@@ -218,6 +221,9 @@
 
   - name: Set YARN_CONF_DIR environment variable at ~/.bashrc
     ansible.builtin.shell: echo 'export YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop' >> ~/.bashrc
+
+  - name: Set Spark bin directory to the PATH.
+    ansible.builtin.shell: echo 'export PATH=/home/ec2-user/spark-3.5.1-bin-hadoop3/bin:$PATH' >> ~/.bashrc  
 
 - hosts: tag_Group_hadoop_worker
   tasks:
