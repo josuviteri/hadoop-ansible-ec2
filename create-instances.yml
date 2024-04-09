@@ -39,7 +39,7 @@
       security_groups: 
         - hadoop-sg
         - hadoop-master-sg
-      image_id: ami-051f7e7f6c2f40dc1
+      image_id: ami-051f8a213df8bc089
       region: us-east-1
       state: running
       tags:
@@ -57,7 +57,7 @@
       key_name: "vockey"
       instance_type: t3.large
       security_group: hadoop-sg
-      image_id: ami-051f7e7f6c2f40dc1
+      image_id: ami-051f8a213df8bc089
       region: us-east-1
       state: running
       tags:
