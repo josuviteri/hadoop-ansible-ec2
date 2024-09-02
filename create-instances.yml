@@ -39,7 +39,7 @@
       security_groups: 
         - hadoop-sg
         - hadoop-master-sg
-      image_id: ami-051f8a213df8bc089
+      image_id: ami-023508951a94f0c71
       region: us-east-1
       state: running
       tags:
@@ -57,7 +57,7 @@
       key_name: "vockey"
       instance_type: t3.large
       security_group: hadoop-sg
-      image_id: ami-051f8a213df8bc089
+      image_id: ami-023508951a94f0c71
       region: us-east-1
       state: running
       tags:
@@ -206,15 +206,15 @@
 
   - name: Download Spark
     ansible.builtin.get_url:
-      url: https://dlcdn.apache.org/spark/spark-3.5.1/spark-3.5.1-bin-hadoop3.tgz
+      url: https://dlcdn.apache.org/spark/spark-3.5.2/spark-3.5.2-bin-hadoop3.tgz
       dest: /home/ec2-user
       timeout: 60
 
   - name: Extract Spark
-    ansible.builtin.command: tar -xf /home/ec2-user/spark-3.5.1-bin-hadoop3.tgz
+    ansible.builtin.command: tar -xf /home/ec2-user/spark-3.5.2-bin-hadoop3.tgz
 
   - name: Set SPARK_HOME environment variable at ~/.bashrc
-    ansible.builtin.shell: echo 'export SPARK_HOME=/home/ec2-user/spark-3.5.1-bin-hadoop3' >> ~/.bashrc
+    ansible.builtin.shell: echo 'export SPARK_HOME=/home/ec2-user/spark-3.5.2-bin-hadoop3' >> ~/.bashrc
 
   - name: Set HADOOP_CONF_DIR environment variable at ~/.bashrc
     ansible.builtin.shell: echo 'export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop' >> ~/.bashrc
@@ -223,7 +223,7 @@
     ansible.builtin.shell: echo 'export YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop' >> ~/.bashrc
 
   - name: Set Spark bin directory to the PATH.
-    ansible.builtin.shell: echo 'export PATH=/home/ec2-user/spark-3.5.1-bin-hadoop3/bin:$PATH' >> ~/.bashrc  
+    ansible.builtin.shell: echo 'export PATH=/home/ec2-user/spark-3.5.2-bin-hadoop3/bin:$PATH' >> ~/.bashrc  
 
 - hosts: tag_Group_hadoop_worker
   tasks:
@@ -280,3 +280,9 @@
       rules:
         - proto: all
           group_name: hadoop-sg
+
+  - name: Associate new elastic IP with the master instance
+    amazon.aws.ec2_eip:
+      device_id: "{{ item }}"
+      region: us-east-1
+    loop: "{{ hadoop_master_values.instance_ids }}"
