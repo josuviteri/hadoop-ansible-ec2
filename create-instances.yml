@@ -281,8 +281,8 @@
         - proto: all
           group_name: hadoop-sg
 
-  - name: Associate new elastic IP with the master instance
-    amazon.aws.ec2_eip:
-      device_id: "{{ item }}"
-      region: us-east-1
-    loop: "{{ hadoop_master_values.instance_ids }}"
+  # - name: Associate new elastic IP with the master instance
+  #   amazon.aws.ec2_eip:
+  #     device_id: "{{ item }}"
+  #     region: us-east-1
+  #   loop: "{{ hadoop_master_values.instance_ids }}"
