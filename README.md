@@ -1,5 +1,13 @@
 # Ansible script for deploying Hadoop instaces at AWS EC2
 
+1. On a root terminal install git and python3.11-venv: 
+
+```
+$ su root
+$ apt update
+$ apt install git python3.11-venv
+```
+
 1. Set AWS credentials at ~/.aws/credentials
 2. Download SSH private key at ~/.ssh/vockey.pem
 3. Set the proper permissions for the key: `chmod og-rwx ~/.ssh/vockey.pem`
