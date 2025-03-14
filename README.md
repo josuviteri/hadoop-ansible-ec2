@@ -5,7 +5,7 @@
 ```
 $ su root
 $ apt update
-$ apt install git python3.11-venv
+$ apt install git python3.11-venv libffi-dev
 ```
 
 1. Set AWS credentials at ~/.aws/credentials
