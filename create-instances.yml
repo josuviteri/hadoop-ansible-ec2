@@ -206,15 +206,15 @@
 
   - name: Download Spark
     ansible.builtin.get_url:
-      url: https://dlcdn.apache.org/spark/spark-3.5.3/spark-3.5.3-bin-hadoop3.tgz
+      url: https://archive.apache.org/dist/spark/spark-3.5.5/spark-3.5.5-bin-hadoop3.tgz
       dest: /home/ec2-user
       timeout: 60
 
   - name: Extract Spark
-    ansible.builtin.command: tar -xf /home/ec2-user/spark-3.5.3-bin-hadoop3.tgz
+    ansible.builtin.command: tar -xf /home/ec2-user/spark-3.5.5-bin-hadoop3.tgz
 
   - name: Set SPARK_HOME environment variable at ~/.bashrc
-    ansible.builtin.shell: echo 'export SPARK_HOME=/home/ec2-user/spark-3.5.3-bin-hadoop3' >> ~/.bashrc
+    ansible.builtin.shell: echo 'export SPARK_HOME=/home/ec2-user/spark-3.5.5-bin-hadoop3' >> ~/.bashrc
 
   - name: Set HADOOP_CONF_DIR environment variable at ~/.bashrc
     ansible.builtin.shell: echo 'export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop' >> ~/.bashrc
@@ -223,7 +223,7 @@
     ansible.builtin.shell: echo 'export YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop' >> ~/.bashrc
 
   - name: Set Spark bin directory to the PATH.
-    ansible.builtin.shell: echo 'export PATH=/home/ec2-user/spark-3.5.3-bin-hadoop3/bin:$PATH' >> ~/.bashrc  
+    ansible.builtin.shell: echo 'export PATH=/home/ec2-user/spark-3.5.5-bin-hadoop3/bin:$PATH' >> ~/.bashrc  
 
 - hosts: tag_Group_hadoop_worker
   tasks:
