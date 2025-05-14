@@ -71,6 +71,7 @@
       - "1"
       - "2"
       - "3" 
+      - "4"
     register: hadoop_worker_values
 
   - meta: refresh_inventory
