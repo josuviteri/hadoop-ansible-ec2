@@ -35,7 +35,7 @@
     amazon.aws.ec2_instance:
       name: "hadoop-master"
       key_name: "vockey"
-      instance_type: t3.large
+      instance_type: m5.large
       security_groups: 
         - hadoop-sg
         - hadoop-master-sg
@@ -55,7 +55,7 @@
     amazon.aws.ec2_instance:
       name: "hadoop-worker-{{item}}"
       key_name: "vockey"
-      instance_type: t3.large
+      instance_type: m5.large
       security_group: hadoop-sg
       image_id: ami-066784287e358dad1
       region: us-east-1
